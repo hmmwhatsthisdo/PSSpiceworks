@@ -1,6 +1,6 @@
 Function New-SpiceworksSession {
     [CmdletBinding()]
-    [OutputType("SpiceworksSession")]
+    [OutputType("Spiceworks.Session")]
     Param(
         [Parameter(
             Mandatory=$true, 
@@ -21,7 +21,7 @@ Function New-SpiceworksSession {
         $UseHTTPS = $false
     )
     
-        $SpiceworksSession = [SpiceworksSession]::new()
+        $SpiceworksSession = [Spiceworks.Session]::new()
 
         $SpiceworksSession.Server = $Server
 
