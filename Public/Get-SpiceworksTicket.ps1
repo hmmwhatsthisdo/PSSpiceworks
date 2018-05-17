@@ -4,6 +4,9 @@ function Get-SpiceworksTicket {
     )]
     # [OutputType("SpiceworksTicket")]
     param (
+        [Parameter(
+            Mandatory = $true
+        )]
         [Spiceworks.Session]$Session,
         
         [Int[]]$ID
