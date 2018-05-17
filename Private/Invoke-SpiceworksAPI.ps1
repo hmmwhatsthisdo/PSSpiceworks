@@ -7,7 +7,9 @@ function Invoke-SpiceworksAPI {
 
         [Microsoft.PowerShell.Commands.WebRequestMethod]$Method,
 
-        [Hashtable]$Parameters
+        [Hashtable]$Parameters,
+
+        [Switch]$NoEnumerate
     )
     
     begin {
@@ -17,7 +19,7 @@ function Invoke-SpiceworksAPI {
 
         $MethodURI = $Session.GetURI("/api/$Endpoint")
 
-        Invoke-RestMethod -Method $Method -Uri $MethodURI -WebSession $Session.WebSession -Body $Parameters
+        Invoke-RestMethod -Method $Method -Uri $MethodURI -WebSession $Session.WebSession -Body $Parameters | Write-Output -NoEnumerate:$NoEnumerate
 
     }
     
