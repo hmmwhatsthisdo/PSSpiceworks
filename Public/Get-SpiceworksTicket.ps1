@@ -9,6 +9,9 @@ function Get-SpiceworksTicket {
         )]
         [Spiceworks.Session]$Session,
         
+        [Parameter(
+            ValueFromPipelineByPropertyName = $true
+        )]
         [Int[]]$ID
     )
     
