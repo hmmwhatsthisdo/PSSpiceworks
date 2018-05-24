@@ -64,7 +64,7 @@ if ($Classes.cs) {
     Write-Verbose "Importing C# classes..."	
 
     # This is probably a bad idea, but I don't know enough about the CLR to understand why this is the case.
-    $Script:ReferencedAssemblies = ([System.AppDomain]::CurrentDomain.GetAssemblies() | Sort-Object -unique -Property FullName | Where-Object Location | ForEach-Object Location | Select-Object -unique)
+    $Script:ReferencedAssemblies = ([System.AppDomain]::CurrentDomain.GetAssemblies() | Sort-Object -unique -Property FullName | Where-Object Location | Where-Object Location -notmatch "\.(?:exe|winmd)$" | ForEach-Object Location | Select-Object -unique)
 
     try {
         Add-Type -Path ($Classes.cs | Foreach-Object Fullname) -Verbose -ReferencedAssemblies $Script:ReferencedAssemblies
