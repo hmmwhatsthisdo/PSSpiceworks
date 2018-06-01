@@ -56,10 +56,10 @@ function Get-SpiceworksTicket {
             
 
             # Determine the starting page.
-            $StartPage = (($PSCmdlet.PagingParameters.Skip) / $PageSize) -as [int]
+            $StartPage = (($PSCmdlet.PagingParameters.Skip) / $PageSize) -as [int] + 1
 
             # Determine the last page to retrieve.
-            $EndPage = (($PSCmdlet.PagingParameters.Skip + $PSCmdlet.PagingParameters.First - 1) / $PageSize) -as [int]
+            $EndPage = [Math]::Ceiling(($PSCmdlet.PagingParameters.Skip + $PSCmdlet.PagingParameters.First) / $PageSize)
 
             Write-Verbose "Retrieving ticket pages $StartPage through $EndPage."
             Get-SpiceworksTicketPage -Session $Session -Page ($StartPage..$EndPage) -PageSize $PageSize | Select-Object -Skip ($PSCmdlet.PagingParameters.Skip % $PageSize) -First $PSCmdlet.PagingParameters.First 
@@ -72,10 +72,10 @@ function Get-SpiceworksTicket {
 
             Write-Verbose "$TicketCount tickets available as reported by Spiceworks."
 
-            $EndPage = (($TicketCount - 1) / $PageSize) -as [int]
+            $EndPage = [Math]::Ceiling($TicketCount / $PageSize)
 
-            Write-Verbose "Retrieving ticket pages 0 through $EndPage."
-            Get-SpiceworksTicketPage -Session $Session -Page (0..$EndPage) -PageSize $PageSize
+            Write-Verbose "Retrieving ticket pages 1 through $EndPage."
+            Get-SpiceworksTicketPage -Session $Session -Page (1..$EndPage) -PageSize $PageSize
         }
     }
     
